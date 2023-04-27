@@ -5,6 +5,8 @@ import { AuthUserController } from "./controllers/user/AuthUserController";
 import { DetailUserController } from "./controllers/user/DetailUserController";
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { CreateCategoryController } from "./controllers/category/CreateCategoryController";
+import { ListCategoryService } from "./services/category/ListCategoryService";
+import { ListCategoryController } from "./controllers/category/ListCategoryController";
 // Cria uma nova instância do objeto Router
 const router = Router();
 
@@ -29,8 +31,9 @@ router.get('/me', isAuthenticated, new DetailUserController().handle)
 //############# Rotas das categorias #############################################################################################################
 
 // Cadastro de categorias
-
-router.post('/createcategory', isAuthenticated, new CreateCategoryController().handle )
+router.post('/createcategory', isAuthenticated, new CreateCategoryController().handle)
+// Read das categorias
+router.get('/listcategory', isAuthenticated, new ListCategoryController().handle)
 
 
 

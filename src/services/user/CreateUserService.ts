@@ -14,7 +14,7 @@ class CreateUserService{
     async execute({name,email,password}: UserRequest){
         
           //Verifica se o usuario enviou um email no cadastro
-          if(!email){
+          if(email == '' || email == " "){
             throw new Error("Email Incorrect")
         }
        
