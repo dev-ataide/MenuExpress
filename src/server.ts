@@ -2,7 +2,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import 'express-async-errors';
 import cors from 'cors';
-
+import path from 'path'
 import { router } from './routes'; // Recebe as rotas
 
 const app = express(); // Instancia a aplicação express
@@ -10,6 +10,14 @@ app.use(express.json()); // Middleware que permite que o App use o express para 
 app.use(cors()); // Middleware que libera o tratamento para qualquer IP
 
 app.use(router); // Middleware que permite que possamos utilizar as rotas dentro do app.
+
+// Middleware para acessar as imagens
+app.use(
+    '/files',
+    express.static(path.resolve(__dirname,'..','tmp'))
+)
+
+
 
 // Middleware que trata erros assíncronos
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

@@ -5,10 +5,16 @@ import { AuthUserController } from "./controllers/user/AuthUserController";
 import { DetailUserController } from "./controllers/user/DetailUserController";
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { CreateCategoryController } from "./controllers/category/CreateCategoryController";
-import { ListCategoryService } from "./services/category/ListCategoryService";
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
+import { CreateProductController } from "./controllers/product/CreateProductController";
+import multer  from "multer";
+import uploadConfig from "./config/multer";
+
 // Cria uma nova instância do objeto Router
 const router = Router();
+
+// Cria um middleware do multer e atribui à constante 'upload', passando como parâmetro o objeto de configuração de upload retornado pela função 'uploadConfig.upload()' e o diretório de destino dos arquivos "./tmp".
+const upload = multer(uploadConfig.uploadConfig("./tmp"));
 
 // Cria uma rota para lidar com requisições GET na URL '/teste'
 router.get('/teste', (req: Request, res: Response) =>{
@@ -29,15 +35,16 @@ router.post('/session', new AuthUserController().handle)
 router.get('/me', isAuthenticated, new DetailUserController().handle) 
 
 //############# Rotas das categorias #############################################################################################################
-
+    
 // Cadastro de categorias
 router.post('/createcategory', isAuthenticated, new CreateCategoryController().handle)
 // Read das categorias
 router.get('/listcategory', isAuthenticated, new ListCategoryController().handle)
 
+//############# Rotas dos produtos #############################################################################################################
 
-
-
+// Cadastrando produto
+router.post('/product', isAuthenticated, upload.single('file') ,new CreateProductController().handle)
 
 
 
