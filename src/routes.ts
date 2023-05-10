@@ -21,7 +21,7 @@ const upload = multer(uploadConfig.uploadConfig("./tmp"));
 router.get('/teste', (req: Request, res: Response) =>{
     // Retorna um erro 500 com a mensagem 'Erro ao fazer essa requisição'
     throw new Error('Erro ao fazer essa requisição')
-})
+}) 
 
 // Cria uma rota para lidar com requisições POST/GET na URL '/...'
 // Quando uma requisição POST é feita para essa rota, a função 'handle' do objeto 'CreateUserController', ou qualquer outro objeto, será executada
